@@ -28,6 +28,15 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/so
     && apt-get update \
     && apt-get install -y ffmpeg python pkg-config libcairo-dev make g++ libjpeg-dev git mysql-client \
     && apt-get clean
+    
+RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
+
+RUN tar xpvf ./ffmpeg-release-amd64-static.tar.xz -C ./ \
+    && cp -f ./ffmpeg-4.2.2-amd64-static/ff* /usr/bin/ \
+    && chmod +x /usr/bin/ff*
+
+RUN rm -f ffmpeg-release-amd64-static.tar.xz \
+    && rm -rf ./ffmpeg-4.2.2-amd64-static
 
 # Clone the Shinobi CCTV PRO repo
 RUN mkdir master_temp
